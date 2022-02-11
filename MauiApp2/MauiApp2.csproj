@@ -29,6 +29,11 @@
 		<TargetPlatformMinVersion Condition="$(TargetFramework.Contains('-windows'))">10.0.17763.0</TargetPlatformMinVersion>
 	</PropertyGroup>
 
+	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+		<RunAOTCompilation Condition="'$(TargetFramework)' == 'net6.0-android'">true</RunAOTCompilation>
+		<AndroidEnableProfiledAot Condition="'$(TargetFramework)' == 'net6.0-android'">true</AndroidEnableProfiledAot>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\appicon.svg" ForegroundFile="Resources\appiconfg.svg" Color="#512BD4" />
