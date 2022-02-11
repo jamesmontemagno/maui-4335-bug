@@ -30,10 +30,23 @@
 		<TargetPlatformMinVersion Condition="$(TargetFramework.Contains('-windows'))">10.0.17763.0</TargetPlatformMinVersion>
 	</PropertyGroup>
 
+	
+	<!--Use normal AOT
 	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
 		<RunAOTCompilation Condition="'$(TargetFramework)' == 'net6.0-android'">true</RunAOTCompilation>
 		<AndroidEnableProfiledAot Condition="'$(TargetFramework)' == 'net6.0-android'">true</AndroidEnableProfiledAot>
 	</PropertyGroup>
+	-->
+	<!-- Use custom profiled AOT -->
+	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+		<AndroidUseDefaultAotProfile>false</AndroidUseDefaultAotProfile>
+		<MauiUseDefaultAotProfile>false</MauiUseDefaultAotProfile>
+		<RunAOTCompilation>true</RunAOTCompilation>
+		<AndroidEnableProfiledAot>true</AndroidEnableProfiledAot>
+	</PropertyGroup>
+	<ItemGroup>
+		<AndroidAotProfile Include="custom.aprof" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<!-- App Icon -->
@@ -53,6 +66,10 @@
 		<!-- Required - WinUI does not yet have buildTransitive for everything -->
 		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0" />
 		<PackageReference Include="Microsoft.Graphics.Win2D" Version="1.0.0.30" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Mono.AotProfiler.Android" Version="6.0.0-preview1" />
 	</ItemGroup>
 
 
